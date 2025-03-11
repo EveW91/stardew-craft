@@ -8,7 +8,8 @@ objects_data = JSON.parse(File.read(Rails.root.join('db', 'data', 'Objects.json'
 # Add special category ingredients manually
 special_ingredients = {
   -5 => 'Egg (Any)',
-  -6 => 'Milk (Any)'
+  -6 => 'Milk (Any)',
+  -4 => 'Fish (Any)'
 }
 
 special_ingredients.each do |id, name|
@@ -36,9 +37,29 @@ def parse_ingredients(ingredient_string)
   end.compact
 end
 
-# Seed Recipes
-puts "🍳 Seeding Recipes..."
+# Seed Cooking Recipes
+puts "🍳 Seeding Cooking Recipes..."
 cooking_data.each do |recipe_name, details|
+  recipe = Recipe.find_or_create_by!(name: recipe_name)
+  ingredients = parse_ingredients(details)
+
+  ingredients.each do |ingredient_data|
+    ingredient = Ingredient.find_by(game_id: ingredient_data[:game_id])
+
+    if ingredient
+      RecipeIngredient.find_or_create_by!(
+        recipe: recipe,
+        ingredient: ingredient
+      ).update(amount: ingredient_data[:amount])
+    else
+      puts "⚠️ Warning: Ingredient with ID #{ingredient_data[:game_id]} not found for recipe '#{recipe_name}'"
+    end
+  end
+end
+
+# Seed Crafting Recipes
+puts "🔨 Seeding Crafting Recipes..."
+crafting_data.each do |recipe_name, details|
   recipe = Recipe.find_or_create_by!(name: recipe_name)
   ingredients = parse_ingredients(details)
 
