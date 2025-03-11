@@ -2,18 +2,20 @@
 <h1>Recipes</h1>
   <% if @recipes.any? %>
       <% @recipes.each do |recipe| %>
+        <div class="recipe-item">
           <%= recipe.name %>
-            <ul>
+          <i class="fa-solid fa-plus"></i>
+        </div>
+
+            <%# <ul>
               <% if recipe.ingredients.any? %>
-                <% recipe.ingredients.each do |ingredient| %>
-                  <%= ingredient.name %>
-              <% end %>
-            </ul>
+                <%# <% recipe.ingredients.each do |ingredient| %>
+                  <%# <%= ingredient.name %>
+              <%# <% end %>
+            <%# </ul>
               <% else %>
-                <span>No ingredients available</span>
+                <%# <span>No ingredients available</span>
               <% end %>
-            <i class="fa-solid fa-plus"></i>
-        </li>
       <% end %>
     </ul>
   <% end %>

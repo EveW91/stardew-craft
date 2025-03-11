@@ -1,0 +1,18 @@
+<div class="my-list-bar">
+  <h1>My Lists</h1>
+  <%= link_to "Create new list", new_recipe_list_path %>
+</div>
+
+<div class="list-container">
+  <% if @recipe_lists.any? %>
+    <ul>
+      <% @recipe_lists.each do |list| %>
+        <li><%= link_to list.name, recipe_list_path(list) %>
+          <ul><li><%= list.notes %></li></ul>
+        </li>
+      <% end%>
+    </ul>
+    <% else %>
+      <p>No recipe lists yet</p>
+  <% end %>
+</div>
