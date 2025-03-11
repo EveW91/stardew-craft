@@ -11,4 +11,8 @@ Rails.application.routes.draw do
       post "join"
     end
   end
+
+  resources :recipe_lists do
+    post "add_recipe", on: :member
+  end
 end

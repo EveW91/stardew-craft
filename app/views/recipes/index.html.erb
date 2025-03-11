@@ -1,2 +1,2 @@
 <%= render "searchbar" %>
-<%= render "results" %>
+<%= render partial: "recipes/results", locals: { list: @recipe_list, recipe: @recipe } %>

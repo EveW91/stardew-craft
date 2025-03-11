@@ -1,0 +1,9 @@
+<nav class="navbar">
+  <div class="logo-container">
+    <%= link_to root_path do %>
+      <%= image_tag("logo.png", alt: "Home") %>
+    <% end %>
+
+    <%= link_to "My recipe lists", recipe_lists_path, class: "nav-link" %>
+  </div>
+</nav>

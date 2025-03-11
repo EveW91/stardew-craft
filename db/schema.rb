@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_03_11_084835) do
+ActiveRecord::Schema[7.1].define(version: 2025_03_11_122851) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -29,6 +29,24 @@ ActiveRecord::Schema[7.1].define(version: 2025_03_11_084835) do
     t.datetime "updated_at", null: false
     t.index ["ingredient_id"], name: "index_recipe_ingredients_on_ingredient_id"
     t.index ["recipe_id"], name: "index_recipe_ingredients_on_recipe_id"
+  end
+
+  create_table "recipe_list_recipes", force: :cascade do |t|
+    t.bigint "recipe_list_id", null: false
+    t.bigint "recipe_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["recipe_id"], name: "index_recipe_list_recipes_on_recipe_id"
+    t.index ["recipe_list_id"], name: "index_recipe_list_recipes_on_recipe_list_id"
+  end
+
+  create_table "recipe_lists", force: :cascade do |t|
+    t.string "name"
+    t.bigint "user_id", null: false
+    t.text "notes"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_recipe_lists_on_user_id"
   end
 
   create_table "recipes", force: :cascade do |t|
@@ -52,4 +70,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_03_11_084835) do
 
   add_foreign_key "recipe_ingredients", "ingredients"
   add_foreign_key "recipe_ingredients", "recipes"
+  add_foreign_key "recipe_list_recipes", "recipe_lists"
+  add_foreign_key "recipe_list_recipes", "recipes"
+  add_foreign_key "recipe_lists", "users"
 end

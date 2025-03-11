@@ -1,0 +1,9 @@
+<h1>Edit Recipe List</h1>
+
+<%= simple_form_for(@recipe_list) do |f| %>
+  <%= f.input :name %>
+  <%= f.input :notes %>
+  <%= f.submit "Update List" %>
+<% end %>
+
+<%= link_to "Back to My Lists", recipe_lists_path %>
