@@ -1,5 +1,17 @@
 <div class="list-bar">
   <h1><%= @recipe_list.name %></h1>
+  <p><%= @recipe_list.notes %></p>
   <%= link_to "Edit list", edit_recipe_list_path(@recipe_list) %>
-  <%# <%= destroy %>
+</div>
+
+<div>
+  <% if @recipe_list.recipes.any? %>
+  <ul>
+    <% @recipe_list.recipes.each do |recipe| %>
+      <li><%= recipe.name %></li>
+    <% end %>
+  </ul>
+  <% else %>
+    <p>No recipes added yet</p>
+  <% end %>
 </div>

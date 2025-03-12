@@ -8,6 +8,7 @@ class RecipeListsController < ApplicationController
   def show
     @recipe_list = RecipeList.find(params[:id])
     @recipes = @recipe_list.recipes
+    @recipe_lists = current_user.recipe_lists
   end
 
   def new
@@ -45,12 +46,18 @@ class RecipeListsController < ApplicationController
   def add_recipe
     @recipe_list = RecipeList.find(params[:id])
     @recipe = Recipe.find(params[:recipe_id])
+    selected_recipe_list = RecipeList.find(params[:recipe_list_id])
+    logger.debug "recipe id: #{@recipe.id} being added to Recipe List ID: #{@recipe_list.id}"
 
     unless @recipe_list.recipes.include?(@recipe)
-      @recipe_list.recipes << @recipe
-      redirect_to @recipe_list, notice: "Recipe added to list!"
+      selected_recipe_list.recipes << @recipe
+      selected_recipe_list.save
+      logger.debug "recipe added successfully"
+      # @recipe_list.recipes << @recipe
+      # @recipe_list.save
+      redirect_to @recipe_list, notice: "Recipe added successfully"
     else
-      redirect_to @recipe_list, alert: "Recipe already in list"
+      redirect_to @recipe_list, alert: "Recipe is already in your list"
     end
   end
 

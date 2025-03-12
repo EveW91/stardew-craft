@@ -12,7 +12,9 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :recipe_lists do
-    post "add_recipe", on: :member
+  resources :recipe_lists, only: %i[index create show edit new] do
+    member do
+      post :add_recipe, to: "recipe_lists#add_recipe"
+    end
   end
 end

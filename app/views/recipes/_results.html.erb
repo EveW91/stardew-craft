@@ -4,18 +4,12 @@
       <% @recipes.each do |recipe| %>
         <div class="recipe-item">
           <%= recipe.name %>
-          <i class="fa-solid fa-plus"></i>
+          <%= form_with url: add_recipe_recipe_list_path(@recipe_list, recipe_id: recipe.id), method: :post do |f| %>
+            <%= f.label :recipe_list_id, "Select list to add to:" %>
+            <%= f.select :recipe_list_id, options_for_select(@recipe_lists.collect { |list| [list.name, list.id]}), prompt: "Choose a list" %>
+            <%= f.submit %>
+          <% end %>
         </div>
-
-            <%# <ul>
-              <% if recipe.ingredients.any? %>
-                <%# <% recipe.ingredients.each do |ingredient| %>
-                  <%# <%= ingredient.name %>
-              <%# <% end %>
-            <%# </ul>
-              <% else %>
-                <%# <span>No ingredients available</span>
-              <% end %>
       <% end %>
     </ul>
   <% end %>

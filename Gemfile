@@ -33,6 +33,7 @@ gem "simple_form"
 gem "sassc-rails"
 gem "devise"
 gem "ostruct"
+gem "jquery-rails"
 
 # Use Redis adapter to run Action Cable in production
 # gem "redis", ">= 4.0.1"
